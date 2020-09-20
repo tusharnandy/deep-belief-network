@@ -16,7 +16,7 @@ def close_session():
     sess.close()
 
 
-sess = tf.Session()
+sess = tf.compat.v1.Session()
 atexit.register(close_session)
 
 
