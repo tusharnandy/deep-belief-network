@@ -2,7 +2,7 @@ import atexit
 from abc import ABCMeta
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from sklearn.base import ClassifierMixin, RegressorMixin
 
 from ..models import AbstractSupervisedDBN as BaseAbstractSupervisedDBN
@@ -16,7 +16,7 @@ def close_session():
     sess.close()
 
 
-sess = tf.compat.v1.Session()
+sess = tf.Session()
 atexit.register(close_session)
 
 
@@ -118,9 +118,9 @@ class BinaryRBM(BaseBinaryRBM, BaseTensorFlowModel):
         else:
             if self.activation_function == 'sigmoid':
                 stddev = 1.0 / np.sqrt(self.n_visible_units)
-                self.W = weight_variable(tf.random.normal, [self.n_hidden_units, self.n_visible_units], stddev)
-                self.c = weight_variable(tf.random.normal, [self.n_hidden_units], stddev)
-                self.b = weight_variable(tf.random.normal, [self.n_visible_units], stddev)
+                self.W = weight_variable(tf.random_normal, [self.n_hidden_units, self.n_visible_units], stddev)
+                self.c = weight_variable(tf.random_normal, [self.n_hidden_units], stddev)
+                self.b = weight_variable(tf.random_normal, [self.n_visible_units], stddev)
                 self._activation_function_class = tf.nn.sigmoid
             elif self.activation_function == 'relu':
                 stddev = 0.1 / np.sqrt(self.n_visible_units)
