@@ -299,8 +299,8 @@ class TensorFlowAbstractSupervisedDBN(BaseAbstractSupervisedDBN, BaseTensorFlowM
         else:
             if self.unsupervised_dbn.activation_function == 'sigmoid':
                 stddev = 1.0 / np.sqrt(self.input_units)
-                self.W = weight_variable(tf.random_normal, [self.input_units, self.num_classes], stddev)
-                self.b = weight_variable(tf.random_normal, [self.num_classes], stddev)
+                self.W = weight_variable(tf.random.normal, [self.input_units, self.num_classes], stddev)
+                self.b = weight_variable(tf.random.normal, [self.num_classes], stddev)
                 self._activation_function_class = tf.nn.sigmoid
             elif self.unsupervised_dbn.activation_function == 'relu':
                 stddev = 0.1 / np.sqrt(self.input_units)
